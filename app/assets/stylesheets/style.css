@@ -176,3 +176,6 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
         text-align: center;
     }
 }
+.navbar {
+    transition: height 0.5s;
+}

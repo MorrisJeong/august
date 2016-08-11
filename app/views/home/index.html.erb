@@ -36,9 +36,9 @@
     <div class="container">
         <div class="navbar navbar-default navbar-fixed-bottom" role="navigation" id="bottom-nav">
             
-            <div class="navbar-collapse">
-                 <textarea style="margin-top:10px; border:1px solid #ccc; border-radius:5px" rows="5" cols="100" placeholder = " Tell me Your Story" ></textarea><br><br>
-                 <button id="submit" type="submit" class="btn btn-default">Submit</button>
+            <div class="navbar-collapse ">
+                 <textarea class="col-sm-6 col-sm-offset-3 col-xs-12" style="margin-top:10px; border:1px solid #ccc; border-radius:5px" rows="2" placeholder = " Tell me Your Story" ></textarea><br/><br/>
+                 <button id="submit" type="submit" class="btn btn-default col-xs-6 col-xs-offset-3" style="margin-top:2vh;">Submit</button>
             </div>
         </div>
     </div>
@@ -153,32 +153,9 @@
             <a href="../assets/portfolio/12.jpg" title="1" data-gallery>View more</a></p>            
         </figcaption>
     </figure>
-    <button id="clear" type="submit" class="btn btn-default">모든 체크 해제</button>
      <br><br>
 </div>
 <!-- works -->
-
-
-<form id="consumer_input">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile">
-  </div>
-  <div class="col-md-4"></div>
-  <div class="col-md-6">
-  <button  type="submit" class="btn btn-default">Submit</button>
-  <a href="#works"><button id="cancel" type="submit" class="btn btn-default ">Cancel</button></a>
-  </div>
-</form>
-
 
 
 
@@ -269,10 +246,13 @@ Copyright 2016 KHU-Likelion. All rights reserved.
 
 
 <script>
+ /*
 //모든 체크모양 삭제 버튼
     $('#clear').click(function(){
        $('.effect-oscar-second').toggleClass('effect-oscar effect-oscar-second');
     });
+    
+   
 //입력폼 나타나게 하는 버튼, 체크된 것이 없으면 작동하지 않는다.
     $('form').hide();//hide initially
     $("#confirm").click(function(e){
@@ -285,17 +265,76 @@ Copyright 2016 KHU-Likelion. All rights reserved.
         }
       else alert("한 명의 작가를 선택해 주세요.");
     });
+    */
     
 //클릭하면 체크뜨게 하는 것.
     $('[class^="chkbutton"]').on('click',function(){
-       $(this).parent() //not sure if .special.. is parent, select the correct element
-        .toggleClass('effect-oscar effect-oscar-second');
+        var e2=$(this).parent().index()+1;
+        //체크가 아무것도 없는 상태에서 체크 시 navbar 상태변경
+        if($(".effect-oscar-second").length==0){
+           $(this).parent() //not sure if .special.. is parent, select the correct element
+            .toggleClass('effect-oscar effect-oscar-second');
+             if($('[class^="special"]').hasClass('effect-oscar-second') == true) {
+                 $("textarea").attr('rows','10');
+                $("#bottom-nav").css({
+                    'height':'39vh',
+                });
+                //클릭한 작가가 화면 가장 위에 오도록 스크롤 이동, 마이너스 뒤에 있는 것은 보정하기 위해 추가한 값(수정금지...)
+                $(window).scrollTop($('.special'+e2).offset().top-$('body').scrollTop($('#submit')).offset().top*3.5,'slow');
+             }
+              else {
+                $("textarea").attr('rows','2');
+                $("#bottom-nav").css({
+                    'height':'10vh',
+                });
+             }
+        }
+        //체크된 상태에서 체크된 것을 누르면 체크 해제 및 상태변경, 아닌것을 누르면 경고메세지 뜨게 하는 것
+       else if($(".effect-oscar-second").length==1)
+       {
+           //e1은 .effect-oscar-second 를 가지고 있는 class가 몇번째인지 알려준다.
+           var e1=$(".effect-oscar-second").index()+1;
+           
+           if(e1==e2)
+           {
+            $(this).parent() //not sure if .special.. is parent, select the correct element
+            .toggleClass('effect-oscar effect-oscar-second');
+             if($('[class^="special"]').hasClass('effect-oscar-second') == true) {
+                $("textarea").attr('rows','10');
+                $("#bottom-nav").css({
+                    'height':'39vh',
+                });
+             }
+              else {
+                $("textarea").attr('rows','2');
+
+                $("#bottom-nav").css({
+                        'height':'10vh',
+                    });
+                }
+            }
+            else alert("하나만 선택해라");
+       }
+        else alert("하나만 선택해라");
     });
     
     //클릭한 그림이 몇번째인지?
     $("#submit").click(function(){
        var e = $('.effect-oscar-second').index();
        alert(e+1);
-    });    
+    });   
+    
+    
+    //navbar 기본상태 작게 만들어 놓는것
+    $(window).ready(function () {
+        var scrollh = $(this).scrollTop();
+            $("#bottom-nav").css({
+                
+                'height':'10vh',
+            });
+        
+    });
+
+
 
 </script>
