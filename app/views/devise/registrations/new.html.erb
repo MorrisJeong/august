@@ -20,10 +20,14 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-
+  <div class="field">
+    <input type="radio" id="user_usertype" name="usertype" value="writer" checked="true" >writer
+    <input type="radio" id="user_usertype" name="usertype" value="user">user
+  </div>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+

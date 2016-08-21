@@ -660,8 +660,8 @@ figure.effect-oscar:hover img {
 
 figure.effect-oscar-second figcaption{
 	background-image:url("../assets/checked.png");
+ 	background-repeat:no-repeat;
 	background-size:50%;
-	background-repeat:no-repeat;
 	margin:0 auto;
 	background-position:center center;
 	z-index:10000000;
