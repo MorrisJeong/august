@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   devise_for :writers
   devise_for :users
+  
+  root 'home#main'
+  
   get 'home/index'
   get 'home/main'
-  root 'home#main'
+  get 'home/writer_page'
+  get 'home/writer_enroll'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
